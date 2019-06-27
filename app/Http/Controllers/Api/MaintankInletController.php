@@ -34,7 +34,7 @@ class MaintankInletController extends Controller
 
         return response()->json([
             'message' => 'Berhasil menyimpan maintank inlet'
-        ], 201);
+        ]);
     }
 
     public function show(MaintankInlet $maintankInlet)
@@ -61,7 +61,7 @@ class MaintankInletController extends Controller
 
         return response()->json([
             'message' => 'Berhasil memperbarui maintank inlet'
-        ], 201);
+        ]);
     }
 
     public function destroy(MaintankInlet $maintankInlet)
@@ -76,6 +76,6 @@ class MaintankInletController extends Controller
 
         return response()->json([
             'message' => 'Berhasil menghapus maintank inlet'
-        ], 202);
+        ]);
     }
 }

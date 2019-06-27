@@ -40,7 +40,7 @@ class PetugasController extends Controller
 
         return response()->json([
             'message' => 'success'
-        ], 201);
+        ]);
     }
 
     public function find(Petugas $petugas) 
@@ -59,7 +59,7 @@ class PetugasController extends Controller
 
         return response()->json([
             'message' => "Berhasil mengubah petugas"
-        ], 201);
+        ]);
     }
 
     public function changeToActive(Petugas $petugas)
@@ -75,7 +75,7 @@ class PetugasController extends Controller
 
         return response()->json([
             'message' => 'Berhasil mengganti status menjadi aktif',
-        ], 202);
+        ]);
     }
 
     public function changeToNonActive(Petugas $petugas)
@@ -91,6 +91,6 @@ class PetugasController extends Controller
 
         return response()->json([
             'message' => 'Berhasil mengganti status menjadi non-aktif',
-        ], 202);
+        ]);
     }
 }

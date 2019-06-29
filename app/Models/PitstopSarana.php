@@ -18,4 +18,9 @@ class PitstopSarana extends Model
     {
         return $this->attributes['tanggal'] = date_db($value);
     }
+
+    public function pitstopSaranaDetail()
+    {
+        return $this->hasMany(PitstopSaranaDetail::class, 'pitstop_sarana_id');
+    }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
 use App\Models\PitstopSarana;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PitstopSarana as PitstopSaranaResource;

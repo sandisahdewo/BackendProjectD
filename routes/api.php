@@ -38,6 +38,14 @@ Route::middleware('auth:api')->group(function() {
         Route::patch('update/{pitstopSarana}', 'PitstopSaranaController@update');
         Route::delete('delete/{pitstopSarana}', 'PitstopSaranaController@delete');
     });
+
+    Route::prefix('pitstop-sarana-detail')->group(function() {
+        Route::get('', 'PitstopSaranaDetailController@index');
+        Route::post('store/{pitstopSarana}', 'PitstopSaranaDetailController@store');
+        Route::get('find/{pitstopSaranaDetail}', 'PitstopSaranaDetailController@find');
+        Route::patch('update/{pitstopSaranaDetail}', 'PitstopSaranaDetailController@update');
+        Route::delete('delete/{pitstopSaranaDetail}', 'PitstopSaranaDetailController@delete');
+    });
 });
 
 Route::prefix('login')->group(function() {

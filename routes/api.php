@@ -30,6 +30,14 @@ Route::middleware('auth:api')->group(function() {
         Route::post('update/{maintankInlet}', 'MaintankInletController@update');
         Route::post('destroy/{maintankInlet}', 'MaintankInletController@destroy');
     });
+
+    Route::prefix('pitstop-sarana')->group(function() {
+        Route::get('', 'PitstopSaranaController@index');
+        Route::post('store', 'PitstopSaranaController@store');
+        Route::get('find/{pitstopSarana}', 'PitstopSaranaController@find');
+        Route::patch('update/{pitstopSarana}', 'PitstopSaranaController@update');
+        Route::delete('delete/{pitstopSarana}', 'PitstopSaranaController@delete');
+    });
 });
 
 Route::prefix('login')->group(function() {

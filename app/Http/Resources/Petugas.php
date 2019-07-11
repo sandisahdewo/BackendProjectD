@@ -18,12 +18,15 @@ class Petugas extends JsonResource
         return [
             'id'            => $this->id,
             'nama'          => $this->nama,
+            'username'      => $this->user->username,
             'email'         => $this->email, 
             'no_hp'         => $this->no_hp,
             'tanggal_lahir' => $this->tanggal_lahir,
             'created_by'    => $this->createdBy->username,
             'created_at'    => $this->created_at,
-            'user'          => new UserResource($this->whenLoaded('user'))
+            'user'          => new UserResource($this->whenLoaded('user')),
+            'status'        => $this->user->status,
+            'peran'         => $this->user->peran
         ];
     }
 }

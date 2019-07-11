@@ -13,9 +13,18 @@ class PitstopSaranaController extends Controller
     public function index()
     {
         $pitstopSarana = PitstopSarana::where('created_by', auth()->user()->id)
+                                      ->where('line', request()->line)
                                       ->get();
 
         return PitstopSaranaResource::collection($pitstopSarana);
+    }
+
+    public function findByCreatorWithDetail($id)
+    {
+        $pitstopSarana = PitstopSarana::with('pitstopSaranaDetail')
+                                      ->find($id);
+
+        return new PitstopSaranaResource($pitstopSarana);
     }
 
     public function store(StoreRequest $request)
@@ -38,12 +47,13 @@ class PitstopSaranaController extends Controller
         return new PitstopSaranaResource($pitstopSarana);
     }
 
-    public function update(UpdateRequest $request, PitstopSarana $pitstopSarana)
+    public function update(UpdateRequest $request, $id)
     {
+        $pitstopSarana = PitstopSarana::find($id);
         $pitstopSarana->update($request->all());
 
         return response()->json([
-            'success' => true
+            'success' => $request->all()
         ]);
     }
 

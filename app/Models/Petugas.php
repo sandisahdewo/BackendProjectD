@@ -27,4 +27,9 @@ class Petugas extends Model
         return $this->belongsTo(\App\User::class, 'created_by');
     }
 
+    public function fuelman()
+    {
+        return $this->belongsTo(\App\User::class, 'fuelman');
+    }
+
 }

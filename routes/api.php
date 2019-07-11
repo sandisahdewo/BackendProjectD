@@ -14,6 +14,12 @@ use Illuminate\Http\Request;
 */
 
 Route::middleware('auth:api')->group(function() {
+
+    Route::prefix('unit')->group(function() {
+        Route::get('search', 'UnitController@search');
+        Route::get('find/{id}', 'UnitController@find');
+    });
+
     Route::prefix('petugas')->group(function() {
         Route::get('', 'PetugasController@index');
         Route::post('store', 'PetugasController@store');
@@ -33,17 +39,18 @@ Route::middleware('auth:api')->group(function() {
 
     Route::prefix('pitstop-sarana')->group(function() {
         Route::get('', 'PitstopSaranaController@index');
+        Route::get('find-by-creator-with-detail/{id}', 'PitstopSaranaController@findByCreatorWithDetail');
         Route::post('store', 'PitstopSaranaController@store');
         Route::get('find/{pitstopSarana}', 'PitstopSaranaController@find');
-        Route::patch('update/{pitstopSarana}', 'PitstopSaranaController@update');
+        Route::post('update/{id}', 'PitstopSaranaController@update');
         Route::delete('delete/{pitstopSarana}', 'PitstopSaranaController@delete');
     });
 
     Route::prefix('pitstop-sarana-detail')->group(function() {
         Route::get('', 'PitstopSaranaDetailController@index');
-        Route::post('store/{pitstopSarana}', 'PitstopSaranaDetailController@store');
+        Route::post('store', 'PitstopSaranaDetailController@store');
         Route::get('find/{pitstopSaranaDetail}', 'PitstopSaranaDetailController@find');
-        Route::patch('update/{pitstopSaranaDetail}', 'PitstopSaranaDetailController@update');
+        Route::post('update/{pitstopSaranaDetail}', 'PitstopSaranaDetailController@update');
         Route::delete('delete/{pitstopSaranaDetail}', 'PitstopSaranaDetailController@delete');
     });
 });

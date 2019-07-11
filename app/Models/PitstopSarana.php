@@ -23,4 +23,14 @@ class PitstopSarana extends Model
     {
         return $this->hasMany(PitstopSaranaDetail::class, 'pitstop_sarana_id');
     }
+
+    public function petugas()
+    {
+        return $this->belongsTo(Petugas::class, 'fuelman_id', 'user_id');
+    }
+
+    public function rfuelman() 
+    {
+        return $this->belongsTo(Petugas::class, 'fuelman', 'user_id');
+    }
 }

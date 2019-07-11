@@ -26,6 +26,11 @@ class PitstopSaranaDetail extends Model
         return $this->attributes['qty_flow_meter'] = $qty;
     }
 
+    public function unit() 
+    {
+        return $this->belongsTo(Unit::class, 'kode_unit', 'kode_unit');
+    }
+
     public static function boot()
     {
         parent::boot();

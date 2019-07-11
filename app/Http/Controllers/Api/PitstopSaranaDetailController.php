@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\PitstopSarana;
 use App\Models\PitstopSaranaDetail;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\PitstopSaranaDetail\StoreRequest;
 use App\Http\Requests\Api\PitstopSaranaDetail\UpdateRequest;
 use App\Http\Resources\PitstopSaranaDetail as PitstopSaranaDetailResource;
-use App\Models\PitstopSarana;
 
 class PitstopSaranaDetailController extends Controller
 {
@@ -20,9 +20,11 @@ class PitstopSaranaDetailController extends Controller
         return PitstopSaranaDetailResource::collection($pitstopSaranaDetail);
     }
 
-    public function store(StoreRequest $request, PitstopSarana $pitstopSarana)
+    public function store(StoreRequest $request)
     {
         $input = $request->all();
+
+        $pitstopSarana = PitstopSarana::find($input['pitstop_sarana_id']);
 
         $pitstopSarana->pitstopSaranaDetail()->create($input);
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Api\PitstopSaranaDetail;
+namespace App\Http\Requests\Api\Unit;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -13,7 +13,7 @@ class UpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,12 +24,7 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'kode_unit' => 'required',
-            'hm_km'     => 'required|numeric',
-            'qty_solar' => 'required|numeric',
-            'nama_user' => 'required|min:1|max:255',
-            'flow_meter_awal'    => 'required|numeric',
-            'flow_meter_akhir'   => 'required|numeric|gt:flow_meter_awal',
+            //
         ];
     }
 }

@@ -16,7 +16,8 @@ class LoginController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Berhasil login',
-                'access_token' => $token
+                'user' => auth()->user(),
+                'access_token' => $token,
             ]);
         }
         return response()->json([

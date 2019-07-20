@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Api\Unit;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class UpdateRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class UpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,10 +22,13 @@ class UpdateRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
         return [
-            //
+            'kode_unit' => 'required|min:1|max:255|unique:unit,kode_unit,'.$request->segment(4),
+            'tipe_unit' => 'nullable|max:255',
+            'no_polisi' => 'required|min:1|max:255|unique:unit,no_polisi,'.$request->segment(4),
+            'jatah_solar' => 'nullable|max:50'
         ];
     }
 }

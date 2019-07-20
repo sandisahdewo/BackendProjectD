@@ -38,6 +38,13 @@ class PitstopSaranaDetailController extends Controller
         return new PitstopSaranaDetailResource($pitstopSaranaDetail);
     }
 
+    public function findLast()
+    {
+        $pitstopSaranaDetail = PitstopSaranaDetail::orderBy('id', 'desc')->first();
+
+        return new PitstopSaranaDetailResource($pitstopSaranaDetail);
+    }
+
     public function update(UpdateRequest $request, PitstopSaranaDetail $pitstopSaranaDetail)
     {
         $pitstopSaranaDetail->update($request->all());

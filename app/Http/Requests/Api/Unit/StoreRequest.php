@@ -13,7 +13,7 @@ class StoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'kode_unit' => 'required|min:1|max:255|unique:unit,kode_unit',
+            'tipe_unit' => 'nullable|max:255',
+            'no_polisi' => 'required|min:1|max:255|unique:unit,no_polisi',
+            'jatah_solar' => 'nullable|max:50'
         ];
     }
 }

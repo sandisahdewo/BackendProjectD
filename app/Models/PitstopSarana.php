@@ -9,7 +9,7 @@ class PitstopSarana extends Model
     protected $table = 'pitstop_sarana';
 
     protected $fillable = [
-        'line', 'driver', 'fuelman', 'tanggal', 'shift',
+        'nomor', 'line', 'driver', 'fuelman', 'tanggal', 'shift',
         'whs_number', 'lokasi', 'petugas_pitstop', 'status',
         'approved_by', 'approved_at', 'created_by'
     ];

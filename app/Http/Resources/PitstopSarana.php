@@ -17,6 +17,7 @@ class PitstopSarana extends JsonResource
     {
         return [
             'id'            => $this->id,
+            'nomor'         => $this->nomor,
             'line'          => ucfirst($this->line),
             'driver'        => $this->driver,
             'tanggal'       => $this->tanggal,
@@ -27,6 +28,7 @@ class PitstopSarana extends JsonResource
             'whs_number'    => $this->whs_number,
             'location'      => $this->lokasi,
             'status'        => $this->status,
+            'total_qty_solar'=> $this->pitstopSaranaDetail->sum('qty_solar'),
             'detail'        => PitstopSaranaDetail::collection($this->whenLoaded('pitstopSaranaDetail')),
         ];
     }

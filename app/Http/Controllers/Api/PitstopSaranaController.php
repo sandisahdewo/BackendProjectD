@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Api\PitstopSarana\StoreRequest;
 use App\Http\Requests\Api\PitstopSarana\UpdateRequest;
 use App\Http\Resources\PitstopSarana as PitstopSaranaResource;
+use Maatwebsite\Excel\Excel;
 
 class PitstopSaranaController extends Controller
 {
@@ -130,7 +131,7 @@ class PitstopSaranaController extends Controller
     }
 
     public function downloadExcel($id)
-    {
+    { 
         $pitstopSarana = PitstopSarana::with('pitstopSaranaDetail', 'pitstopSaranaDetail.unit')->find($id);
 
         $fuelman = $pitstopSarana->rfuelman->nama;
@@ -139,15 +140,40 @@ class PitstopSaranaController extends Controller
         $fileNameWithDirectori = "public/pitstop-sarana/$fileName";
         $fileDirectoryWithExtension = $fileNameWithDirectori.'.xlsx';
         
-        \Excel::store(new PitstopSaranaExport($pitstopSarana), $fileDirectoryWithExtension); 
-
-        $headers =[
-            'Content-Type: application/xlsx',
-        ];
-
         $downloadFile = $fileName.'.xlsx';
         
-        return Storage::download($fileDirectoryWithExtension, $downloadFile, $headers);
-        // return \Excel::download(new PitstopSaranaExport($pitstopSarana), 'pitstop-sarana.xlsx'); 
+        $headers = [
+            'Content-Type' => 'application/xlsx',
+            'Content-Disposition' => 'attachment'
+        ];
+        
+        // \Excel::store(new PitstopSaranaExport($pitstopSarana), $fileDirectoryWithExtension); 
+
+        // return Storage::download($fileDirectoryWithExtension, $downloadFile, $headers);
+
+        return (new PitstopSaranaExport($pitstopSarana))->download($downloadFile, Excel::XLSX, $headers);
     }
+
+    public function downloadPDF($id)
+    {
+        $pitstopSarana = PitstopSarana::with('pitstopSaranaDetail', 'pitstopSaranaDetail.unit')->find($id);
+
+        $fuelman = $pitstopSarana->rfuelman->nama;
+        $tanggal = $pitstopSarana->tanggal;
+        $fileName = "pitstop-sarana - $fuelman - $tanggal";
+        $fileNameWithDirectori = "public/pitstop-sarana/pdf/$fileName";
+        $fileDirectoryWithExtension = $fileNameWithDirectori.'.pdf';
+        $downloadFile = $fileName.'.pdf';
+
+        $headers = [
+            'Content-Type' => 'application/pdf',
+        ];
+        
+        $pdf = \PDF::loadView('pdf.pitstop-sarana.report', compact('pitstopSarana'));
+        $pdf->setPaper('folio', 'portrait');
+
+        return $pdf->stream($downloadFile);
+        // return view('pdf.pitstop-sarana.report', compact('pitstopSarana'));
+    }
+
 }

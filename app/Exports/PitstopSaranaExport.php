@@ -8,9 +8,11 @@ use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Events\AfterSheet;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\Exportable;
 
 class PitstopSaranaExport implements FromView, ShouldAutoSize
 {
+    use Exportable;
 
     protected $id;
     protected $data;

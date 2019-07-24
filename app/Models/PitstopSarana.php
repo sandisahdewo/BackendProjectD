@@ -33,4 +33,14 @@ class PitstopSarana extends Model
     {
         return $this->belongsTo(Petugas::class, 'fuelman', 'user_id');
     }
+
+    public function getShiftViewAttribute() 
+    {
+        $list = [
+            'siang' => 'Siang (07:00 - 17:00)',
+            'malam' => 'Malam (17:00 - 07:00)'
+        ];
+
+        return $list[$this->shift];
+    }
 }

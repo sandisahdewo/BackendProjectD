@@ -10,6 +10,7 @@ use App\Http\Requests\Api\PitstopSarana\StoreRequest;
 use App\Http\Requests\Api\PitstopSarana\UpdateRequest;
 use App\Http\Resources\PitstopSarana as PitstopSaranaResource;
 use Maatwebsite\Excel\Excel;
+use Illuminate\Support\Carbon;
 
 class PitstopSaranaController extends Controller
 {
@@ -29,7 +30,7 @@ class PitstopSaranaController extends Controller
                                         $query->where('shift', request()->shift);
                                       })
                                       ->where(function($query) {
-                                        if(request()->tanggal && request()->tanggal !== '') {
+                                        if(request()->tanggal) {
                                             $query->where('tanggal', date_db(request()->tanggal));
                                         } else {
                                             $query->where('tanggal', date_db(now()));
@@ -44,6 +45,8 @@ class PitstopSaranaController extends Controller
     {
         $pitstopSarana = PitstopSarana::with('pitstopSaranaDetail')
                                       ->find($id);
+        
+        if(! $pitstopSarana) return $this->dataNotFound();
 
         return new PitstopSaranaResource($pitstopSarana);
     }
@@ -110,10 +113,28 @@ class PitstopSaranaController extends Controller
         ]);
     }
 
+    public function finishInputDetail($id)
+    {
+        $pitstopSarana = PitstopSarana::find($id);
+        $newPitstopSarana = $pitstopSarana->replicate();
+        $pitstopSarana->status = 'finish-input';
+        $newPitstopSarana->save();
+        $pitstopSarana->save();
+
+        return response()->json([
+            'success' => true,
+            'data' => $newPitstopSarana
+        ]);
+    }
+
     public function approve($id)
     {
         $pitstopSarana = PitstopSarana::find($id);
-        $pitstopSarana->update(['status' => 'approved']);
+        $pitstopSarana->update([
+            'approved_by' => auth()->user()->id,
+            'approved_at' => \Carbon\Carbon::now(),
+            'status' => 'approved'
+        ]);
 
         return response()->json([
             'success' => true
@@ -167,6 +188,7 @@ class PitstopSaranaController extends Controller
 
         $headers = [
             'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment'
         ];
         
         $pdf = \PDF::loadView('pdf.pitstop-sarana.report', compact('pitstopSarana'));

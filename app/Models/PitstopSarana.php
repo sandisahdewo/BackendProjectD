@@ -11,7 +11,7 @@ class PitstopSarana extends Model
     protected $fillable = [
         'nomor', 'line', 'driver', 'fuelman', 'tanggal', 'shift',
         'whs_number', 'lokasi', 'petugas_pitstop', 'status',
-        'approved_by', 'approved_at', 'created_by'
+        'approved_by', 'approved_at', 'created_by',
     ];
 
     public function setTanggalAttribute($value)
@@ -42,5 +42,21 @@ class PitstopSarana extends Model
         ];
 
         return $list[$this->shift];
+    }
+
+    public function getSelisihFMAttribute()
+    {
+        $first = 0; $last = 0;
+
+        $first = $this->pitstopSaranaDetail()->first();
+        $last = $this->pitstopSaranaDetail()->latest()->first();
+        
+        if($first)
+            $first = $first->flow_meter_awal;
+
+        if($last)
+            $last = $last->flow_meter_akhir;
+
+        return $last-$first;
     }
 }

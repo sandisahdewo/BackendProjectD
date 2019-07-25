@@ -11,7 +11,7 @@ class PitstopSaranaDetail extends Model
     protected $fillable = [
         'pitstop_sarana_id', 'kode_unit', 'hm_km', 'qty_solar', 
         'jatah_solar', 'jam', 'nama_user', 'flow_meter_awal', 
-        'flow_meter_akhir', 'qty_flow_meter', 'created_by'
+        'flow_meter_akhir', 'qty_flow_meter', 'keterangan', 'created_by'
     ];
 
     public function setJamAttibute($value)

@@ -24,7 +24,17 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'driver'        => 'nullable|max:64',
+            'tanggal'       => 'required',
+            'whs_number'    => 'required|max:64',
+            'lokasi'        => 'required|max:64'
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'lokasi' => 'location'
         ];
     }
 }

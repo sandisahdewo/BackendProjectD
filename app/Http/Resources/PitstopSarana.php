@@ -29,6 +29,7 @@ class PitstopSarana extends JsonResource
             'location'      => $this->lokasi,
             'status'        => $this->status,
             'total_qty_solar'=> $this->pitstopSaranaDetail->sum('qty_solar'),
+            'selisih_flow_meter' => $this->selisih_fm,
             'detail'        => PitstopSaranaDetail::collection($this->whenLoaded('pitstopSaranaDetail')),
         ];
     }

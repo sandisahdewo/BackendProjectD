@@ -51,9 +51,11 @@ Route::middleware('auth:api')->group(function() {
         Route::post('update/{id}', 'PitstopSaranaController@update');
         Route::delete('delete/{pitstopSarana}', 'PitstopSaranaController@delete');
 
+        Route::get('finish-input-detail/{id}', 'PitstopSaranaController@finishInputDetail');
         Route::get('approve/{id}', 'PitstopSaranaController@approve');
         Route::get('reject/{id}', 'PitstopSaranaController@reject');
         Route::get('export-excel/{id}', 'PitstopSaranaController@downloadExcel');
+        Route::get('export-pdf/{id}', 'PitstopSaranaController@downloadPDF');
     });
 
     Route::prefix('pitstop-sarana-detail')->group(function() {

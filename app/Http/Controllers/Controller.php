@@ -10,4 +10,9 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    public function dataNotFound()
+    {
+        return response()->json(['success' => false, 'message' => 'Data tidak ditemukan.']);
+    }
 }

@@ -30,6 +30,7 @@ class PitstopSaranaDetail extends JsonResource
             'flow_meter_awal'   => $this->flow_meter_awal,
             'flow_meter_akhir'  => $this->flow_meter_akhir,
             'qty_flow_meter'    => $this->qty_flow_meter,
+            'keterangan'        => $this->keterangan,
         ];
     }
 }

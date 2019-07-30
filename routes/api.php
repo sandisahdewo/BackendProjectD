@@ -29,8 +29,8 @@ Route::middleware('auth:api')->group(function() {
         Route::post('store', 'PetugasController@store');
         Route::get('find/{petugas}', 'PetugasController@find');
         Route::post('update/{petugas}', 'PetugasController@update');
-        Route::post('change-status-aktif/{petugas}', 'PetugasController@changeToActive');
-        Route::post('change-status-nonaktif/{petugas}', 'PetugasController@changeToNonActive');
+        Route::post('toggle-status/{petugas}', 'PetugasController@toggleStatus');
+        Route::post('change-password/{petugas}', 'PetugasController@changePassword');
     });
 
     Route::prefix('maintank-inlet')->group(function() {

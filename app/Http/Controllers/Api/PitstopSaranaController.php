@@ -62,6 +62,16 @@ class PitstopSaranaController extends Controller
                                       ->when(request()->has('line') && request()->line != '', function($query) {
                                         $query->where('line', request()->line);
                                       })
+                                      ->when(request()->shift, function($query) {
+                                        $query->where('shift', request()->shift);
+                                      })
+                                      ->where(function($query) {
+                                        if(request()->tanggal) {
+                                            $query->where('tanggal', date_db(request()->tanggal));
+                                        } else {
+                                            $query->where('tanggal', date_db(now()));
+                                        }
+                                      })
                                       ->get();
 
         return PitstopSaranaResource::collection($pitstopSarana);

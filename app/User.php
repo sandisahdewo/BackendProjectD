@@ -29,6 +29,10 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public $appends = [
+        'peran_view'
+    ];
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -40,5 +44,10 @@ class User extends Authenticatable
     public function petugas()
     {
         return $this->hasOne(\App\Models\Petugas::class, 'user_id');
+    }
+
+    public function getPeranViewAttribute()
+    {
+        return ucfirst($this->peran);
     }
 }

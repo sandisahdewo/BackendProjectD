@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Petugas\StoreRequest;
 use App\Http\Requests\Api\Petugas\UpdateRequest;
+use App\Http\Requests\Api\Petugas\ChangePasswordRequest;
 use App\Models\Petugas;
 use App\User;
 use App\Http\Resources\Petugas as PetugasResource;
@@ -62,35 +63,28 @@ class PetugasController extends Controller
         ]);
     }
 
-    public function changeToActive(Petugas $petugas)
+    public function toggleStatus(Petugas $petugas)
     {
-        try {
+        if($petugas->user->status == 'aktif') {
+            $petugas->user->status = 'non-aktif';
+        } else {
             $petugas->user->status = 'aktif';
-            $petugas->user->save();
-        } catch(\Exception $e) {
-            return response()->json([
-                'message' => $e
-            ], 500);
         }
+
+        $petugas->user->save();
 
         return response()->json([
             'message' => 'Berhasil mengganti status menjadi aktif',
         ]);
     }
 
-    public function changeToNonActive(Petugas $petugas)
+    public function changePassword(ChangePasswordRequest $request, Petugas $petugas) 
     {
-        try {
-            $petugas->user->status = 'non-aktif';
-            $petugas->user->save();
-        } catch(\Exception $e) {
-            return response()->json([
-                'message' => $e
-            ], 500);
-        }
+        $petugas->user->password = bcrypt($request->password);
+        $petugas->user->save();
 
         return response()->json([
-            'message' => 'Berhasil mengganti status menjadi non-aktif',
+            'message' => 'Berhasil mengubah password.',
         ]);
     }
 }

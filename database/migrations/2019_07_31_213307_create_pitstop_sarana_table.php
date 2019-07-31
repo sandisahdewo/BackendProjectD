@@ -25,8 +25,8 @@ class CreatePitstopSaranaTable extends Migration
             $table->string('lokasi');
             $table->integer('petugas_pitstop');
             $table->string('status')->default('input')->comment('input, finish-input, rejected, approved');
-            $table->bigInteger('approved_by')->unsigned();
-            $table->dateTime('approved_at');
+            $table->bigInteger('approved_by')->nullable()->unsigned();
+            $table->dateTime('approved_at')->nullable();
             $table->bigInteger('created_by')->unsigned();
             $table->timestamps();
         });

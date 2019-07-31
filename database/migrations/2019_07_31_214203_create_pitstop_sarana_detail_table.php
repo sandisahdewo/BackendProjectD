@@ -25,7 +25,7 @@ class CreatePitstopSaranaDetailTable extends Migration
             $table->bigInteger('flow_meter_awal')->default(0);
             $table->bigInteger('flow_meter_akhir')->default(0);
             $table->bigInteger('qty_flow_meter')->default(0);
-            $table->text('keterangan');
+            $table->text('keterangan')->nullable();
             $table->bigInteger('created_by')->unsigned();
             $table->timestamps();
         });

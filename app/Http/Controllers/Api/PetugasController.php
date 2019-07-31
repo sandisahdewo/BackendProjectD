@@ -51,6 +51,7 @@ class PetugasController extends Controller
 
     public function update(UpdateRequest $request, Petugas $petugas) {
         try {
+            $petugas->user()->update($request->all());
             $petugas = $petugas->update($request->all());
         } catch(\Exception $e) {
             return response()->json([

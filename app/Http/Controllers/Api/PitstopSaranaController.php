@@ -16,7 +16,9 @@ class PitstopSaranaController extends Controller
 {
     public function index()
     {
-        $pitstopSarana = PitstopSarana::where('created_by', auth()->user()->id)
+        $pitstopSarana = PitstopSarana::when(auth()->user()->peran == 'fuelman', function($query) {
+                                        $query->where('created_by', auth()->user()->id);
+                                      })
                                       ->when(request()->nomor, function($query) {
                                         $query->where('nomor', request()->nomor);
                                       })

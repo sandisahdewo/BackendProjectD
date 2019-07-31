@@ -39,8 +39,8 @@ class UnitController extends Controller
     public function find($id)
     {
         $unit = Unit::find($id);
-        
-        return new UnitResource($unit);
+        if($unit) return new UnitResource($unit);
+        return $this->dataNotFound();
     }
 
     public function store(StoreRequest $request)
@@ -65,6 +65,8 @@ class UnitController extends Controller
     public function destroy($id)
     {
         $unit = Unit::destroy($id);
+        
+        if(!$unit) return $this->dataNotFound();
         
         return response()->json([
             'success' => true

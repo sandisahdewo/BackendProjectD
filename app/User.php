@@ -29,9 +29,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public $appends = [
-        'peran_view'
-    ];
+    // public $appends = [
+    //     'peran_view'
+    // ];
 
     /**
      * The attributes that should be cast to native types.

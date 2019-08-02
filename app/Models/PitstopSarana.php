@@ -21,7 +21,12 @@ class PitstopSarana extends Model
 
     public function pitstopSaranaDetail()
     {
-        return $this->hasMany(PitstopSaranaDetail::class, 'pitstop_sarana_id');
+        return $this->hasMany(PitstopSaranaDetail::class, 'pitstop_sarana_id', 'id');
+    }
+
+    public function lastPitstopSaranaDetail()
+    {
+        return $this->hasOne(PitstopSaranaDetail::class, 'pitstop_sarana_id', 'id')->orderBy('id', 'desc');
     }
 
     public function petugas()
@@ -31,7 +36,7 @@ class PitstopSarana extends Model
 
     public function rfuelman() 
     {
-        return $this->belongsTo(Petugas::class, 'fuelman', 'user_id');
+        return $this->belongsTo(Petugas::class, 'fuelman', 'id');
     }
 
     public function getShiftViewAttribute() 

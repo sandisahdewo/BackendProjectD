@@ -80,8 +80,8 @@ class UnitTest extends TestCase
     public function testStoreUnitWithData()
     {
         $data = [
-            'kode_unit' => 'TEST-'.rand(100, 999),
-            'no_polisi' => "AG".rand(1000, 9999)."TST",
+            'kode_unit' => 'TEST-'.rand(100, 999).rand(100, 999),
+            'no_polisi' => "AG".rand(1000, 9999).rand(100, 999)."TST",
             'tipe_unit' => 'Strada Extreme '. rand(100, 999),
             'jatah_solar' => rand(10, 100)
         ];
@@ -100,8 +100,8 @@ class UnitTest extends TestCase
     public function testStoreUnitWithDuplicateData()
     {
         $data = [
-            'kode_unit' => 'TEST-'.rand(100, 999),
-            'no_polisi' => "AG".rand(1000, 9999)."TST",
+            'kode_unit' => 'TEST-'.rand(100, 999).rand(100, 999),
+            'no_polisi' => "AG".rand(1000, 9999).rand(100, 999)."TST",
             'tipe_unit' => 'Strada Extreme '. rand(100, 999),
             'jatah_solar' => rand(10, 100)
         ];

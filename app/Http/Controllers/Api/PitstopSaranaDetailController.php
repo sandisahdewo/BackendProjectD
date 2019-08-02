@@ -40,9 +40,18 @@ class PitstopSaranaDetailController extends Controller
 
     public function findLast()
     {
-        $pitstopSaranaDetail = PitstopSaranaDetail::orderBy('id', 'desc')->first();
+        $line = request()->line;
+        $nomor = request()->nomor;
+        $pitstopSarana = PitstopSarana::where('line', $line)
+                                      ->where('nomor', $nomor)
+                                      ->with('lastPitstopSaranaDetail')
+                                      ->orderBy('id', 'desc')
+                                      ->first();
 
-        return new PitstopSaranaDetailResource($pitstopSaranaDetail);
+        if($pitstopSarana->lastPitstopSaranaDetail()->exists())
+            return ['flow_meter_akhir' => $pitstopSarana->lastPitstopSaranaDetail->flow_meter_akhir];
+
+        return ['flow_meter_akhir' => 0];
     }
 
     public function update(UpdateRequest $request, PitstopSaranaDetail $pitstopSaranaDetail)

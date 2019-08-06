@@ -43,6 +43,13 @@ class UnitController extends Controller
         return $this->dataNotFound();
     }
 
+    public function findByKode($kode)
+    {
+        $unit = Unit::where('kode_unit', $kode)->first();
+        if($unit) return new UnitResource($unit);
+        return $this->dataNotFound();
+    }
+
     public function store(StoreRequest $request)
     {
         Unit::create($request->all());

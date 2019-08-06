@@ -19,6 +19,7 @@ Route::middleware('auth:api')->group(function() {
         Route::get('search', 'UnitController@search');
         Route::get('get', 'UnitController@get');
         Route::get('find/{id}', 'UnitController@find');
+        Route::get('find-by-kode/{kode}', 'UnitController@findByKode');
         Route::post('store', 'UnitController@store');
         Route::post('update/{id}', 'UnitController@update');
         Route::delete('destroy/{id}', 'UnitController@destroy');

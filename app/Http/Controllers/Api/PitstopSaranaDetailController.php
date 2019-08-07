@@ -42,8 +42,12 @@ class PitstopSaranaDetailController extends Controller
     {
         $line = request()->line;
         $nomor = request()->nomor;
-        $pitstopSarana = PitstopSarana::where('line', $line)
-                                      ->where('nomor', $nomor)
+        $pitstopSarana = PitstopSarana::when(request()->has('line'), function($query) use($line) {
+                                        $query->where('line', $line);
+                                      })
+                                      ->when(request()->has('nomor'), function($query) use($nomor) {
+                                        $query->where('nomor', $nomor);
+                                      })
                                       ->with('lastPitstopSaranaDetail')
                                       ->orderBy('id', 'desc')
                                       ->first();

@@ -46,7 +46,7 @@ class UnitController extends Controller
     public function findByKode($kode)
     {
         $unit = Unit::where('kode_unit', $kode)->first();
-        if($unit) return new UnitResource($unit);
+        if($unit) return response()->json(['success' => true, 'data' => new UnitResource($unit)]);
         return $this->dataNotFound();
     }
 
